@@ -1,0 +1,44 @@
+var Template = function() { return `<document>
+  <head>
+    <style>
+    .showTextOnHighlight {
+      tv-text-highlight-style: show-on-highlight;
+    }
+    .whiteBadge {
+      tv-tint-color: rgb(255, 255, 255);
+    }
+    .shelfLayout {
+      padding: 20 90 50;
+    }
+    </style>
+  </head>
+  <productTemplate theme="light">
+    <banner>
+      <heroImg src="${this.NYTStaticBaseURL}{{getImage .VideoDetail.Images 3}}" />
+      <stack>
+        <title>{{.VideoDetail.Headline}}</title>
+        <description>{{.VideoDetail.Summary}}</description>
+        <row>
+          <buttonLockup videoURL="{{getVideoURL .VideoDetail.Renditions}}">
+            <badge src="resource://button-remove" class="whiteBadge" />
+            <title>Play</title>
+          </buttonLockup>
+        </row>
+      </stack>
+    </banner>
+    <shelf>
+      <header>
+        <title>More in Op docs</title>
+      </header>
+      <section>
+        {{ range $key, $element := .Playlist.Videos }}
+        <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
+          <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 0}}" width="150" height="226" />
+          <title class="showTextOnHighlight">{{$element.Headline}}</title>
+        </lockup>
+        {{ end }}
+      </section>
+    </shelf>
+  </productTemplate>
+</document>`
+}

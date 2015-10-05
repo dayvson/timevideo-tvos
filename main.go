@@ -9,14 +9,22 @@ import (
 	"net/http"
 )
 
+type HomeScreen struct {
+	Carousel []Video
+	Latest   []Video
+}
+
 type Playlist struct {
 	Id     int
-	Videos [10]Video
+	Videos []Video
 }
 
 type Video struct {
 	Id       string
 	Headline string
+	Section  struct {
+		Display_name string
+	}
 	Summary  string
 	Images   []Image
 	Playlist struct {
@@ -89,10 +97,14 @@ func main() {
 		return nil
 	})
 	e.Get("/home", func(c *echo.Context) error {
-		data := Playlist{}
-		getJson("http://www.nytimes.com/svc/video/api/playlist/1194811622182", &data)
-		fmt.Println(data.Videos[0].Playlist.Id)
-		r.HTML(c.Response().Writer(), http.StatusOK, "home", data)
+		latest := Playlist{}
+		getJson("http://www.nytimes.com/svc/video/api/playlist/1194811622182", &latest)
+		homePage := HomeScreen{
+			Carousel: latest.Videos[0:5],
+			Latest:   latest.Videos[5:20],
+		}
+		fmt.Println(len(homePage.Carousel))
+		r.HTML(c.Response().Writer(), http.StatusOK, "home", homePage)
 		return nil
 	})
 

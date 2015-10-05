@@ -1,0 +1,64 @@
+var Template = function() { return `<document>
+  <head>
+    <style>
+    .imageWithGradient {
+      tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(0,64,0,0.7), rgba(0,64,0,1.0));
+    }
+    .showTextOnHighlight {
+      tv-text-highlight-style: show-on-highlight;
+    }
+    .scrollTextOnHighlight {
+      tv-text-highlight-style: marquee-on-highlight;
+    }
+    .showAndScrollTextOnHighlight {
+      tv-text-highlight-style: marquee-and-show-on-highlight;
+    }
+
+    </style>
+  </head>
+  <stackTemplate>
+    <collectionList>
+      <carousel>
+        <section>
+          {{ range $key, $element := .Videos }}
+          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
+            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 2}}" width="1340" height="400" />
+            <overlay>
+              <title>{{$element.Headline}}</title>
+              <subtitle>{{$element.Summary}}</subtitle>
+            </overlay>
+          </lockup>
+          {{ end }}
+        </section>
+      </carousel>
+      <shelf>
+        <header>
+          <title>Op Docs</title>
+        </header>
+        <section>
+          {{ range $key, $element := .Videos }}
+          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
+            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 2}}" width="320" height="180" />
+            <title class="scrollTextOnHighlight">{{$element.Headline}}</title>
+          </lockup>
+          {{ end }}
+        </section>
+      </shelf>
+      <grid>
+        <header>
+          <title>Op Docs Season</title>
+        </header>
+        <section>
+          <lockup>
+            <img class="imageWithGradient" src="${this.NYTStaticBaseURL}images/2015/09/08/multimedia/opdoc-separatist/opdoc-separatist-videoSixteenByNine310.jpg" width="1024" height="414" />
+            <overlay>
+              <title>Separatist</title>
+              <subtitle>In this short documentary, a white separatist explains why he wanted to help transform a small North Dakota town into an all-white enclave.</subtitle>
+            </overlay>
+          </lockup>
+        </section>
+      </grid>
+    </collectionList>
+  </stackTemplate>
+</document>`
+}

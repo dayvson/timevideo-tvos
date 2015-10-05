@@ -20,9 +20,9 @@ var Template = function() { return `<document>
     <collectionList>
       <carousel>
         <section>
-          {{ range $key, $element := .Videos }}
+          {{ range $key, $element := .Carousel }}
           <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
-            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 2}}" width="1340" height="400" />
+            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 2}}" width="1340" height="400" aspectFill="1" />
             <overlay>
               <title>{{$element.Headline}}</title>
               <subtitle>{{$element.Summary}}</subtitle>
@@ -33,31 +33,21 @@ var Template = function() { return `<document>
       </carousel>
       <shelf>
         <header>
-          <title>Op Docs</title>
+          <title>Latest Videos</title>
         </header>
         <section>
-          {{ range $key, $element := .Videos }}
+          {{ range $key, $element := .Latest }}
           <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
-            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 2}}" width="320" height="180" />
-            <title class="scrollTextOnHighlight">{{$element.Headline}}</title>
+            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 2}}" width="578" height="260" />
+            <overlay>
+              <subtitle class="showAndScrollTextOnHighlight">{{$element.Section.Display_name}}</subtitle>
+            </overlay>
+            <title class="showAndScrollTextOnHighlight">{{$element.Headline}}</title>
+
           </lockup>
           {{ end }}
         </section>
       </shelf>
-      <grid>
-        <header>
-          <title>Op Docs Season</title>
-        </header>
-        <section>
-          <lockup>
-            <img class="imageWithGradient" src="${this.NYTStaticBaseURL}images/2015/09/08/multimedia/opdoc-separatist/opdoc-separatist-videoSixteenByNine310.jpg" width="1024" height="414" />
-            <overlay>
-              <title>Separatist</title>
-              <subtitle>In this short documentary, a white separatist explains why he wanted to help transform a small North Dakota town into an all-white enclave.</subtitle>
-            </overlay>
-          </lockup>
-        </section>
-      </grid>
     </collectionList>
   </stackTemplate>
 </document>`

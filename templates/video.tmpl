@@ -10,31 +10,33 @@ var Template = function() { return `<document>
     .shelfLayout {
       padding: 20 90 50;
     }
+    .heroSize {
+      width:854px; height:480px;
+    }
     </style>
   </head>
   <productTemplate theme="light">
     <banner>
-      <heroImg src="${this.NYTStaticBaseURL}{{getImage .VideoDetail.Images 3}}" />
+      <heroImg class="heroSize" src="${this.NYTStaticBaseURL}{{getImage .VideoDetail.Images 5}}" />
       <stack>
         <title>{{.VideoDetail.Headline}}</title>
-        <description>{{.VideoDetail.Summary}}</description>
+        <description  allowsZooming="true" >{{.VideoDetail.Summary}}</description>
         <row>
           <buttonLockup videoURL="{{getVideoURL .VideoDetail.Renditions}}">
-            <badge src="resource://button-remove" class="whiteBadge" />
-            <title>Play</title>
+            <badge src="resource://button-play" class="whiteBadge" />
           </buttonLockup>
         </row>
       </stack>
     </banner>
     <shelf>
       <header>
-        <title>More in Op docs</title>
+        <title>{{.VideoDetail.Playlist.Display_name}}</title>
       </header>
       <section>
         {{ range $key, $element := .Playlist.Videos }}
         <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
-          <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 0}}" width="150" height="226" />
-          <title class="showTextOnHighlight">{{$element.Headline}}</title>
+          <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 2}}" width="320" height="180" />
+          <title>{{$element.Headline}}</title>
         </lockup>
         {{ end }}
       </section>

@@ -6,12 +6,39 @@ import (
 	"github.com/labstack/echo"
 	"github.com/unrolled/render"
 	"html/template"
+	"io/ioutil"
 	"net/http"
 )
 
+type Carousel struct {
+	Shows []struct {
+		Id    int
+		Image string
+	}
+}
+type Media struct {
+	Type     string
+	Metadata []struct {
+		Url    string
+		Width  int
+		Height int
+	} `json:"media-metadata"`
+}
+type Popular struct {
+	Num_results int
+	Results     []struct {
+		Id    int
+		Title string
+		Media []Media
+	}
+}
 type HomeScreen struct {
-	Carousel []Video
-	Latest   []Video
+	Carousel []struct {
+		Id    int
+		Image string
+	}
+	Latest  []Video
+	Popular Popular
 }
 
 type Playlist struct {
@@ -40,6 +67,10 @@ type VideoDetail struct {
 	Byline       string
 	Images       []Image
 	Renditions   []Rendition
+	Playlist     struct {
+		Display_name string
+		Id           string
+	}
 }
 
 type Image struct {
@@ -69,6 +100,10 @@ func getJson(url string, target interface{}) error {
 }
 
 func main() {
+	file, _ := ioutil.ReadFile("./static/shows.json")
+	var carousel Carousel
+	json.Unmarshal(file, &carousel)
+
 	r := render.New(render.Options{
 		UnEscapeHTML:    true,
 		IsDevelopment:   true,
@@ -86,6 +121,9 @@ func main() {
 					}
 					return ""
 				},
+				"getPopularImage": func(medias []Media, index int) string {
+					return medias[0].Metadata[index].Url
+				},
 			},
 		},
 	})
@@ -99,11 +137,14 @@ func main() {
 	e.Get("/home", func(c *echo.Context) error {
 		latest := Playlist{}
 		getJson("http://www.nytimes.com/svc/video/api/playlist/1194811622182", &latest)
+		popular := Popular{}
+		getJson("http://www.nytimes.com/svc/video/api/video/popular", &popular)
 		homePage := HomeScreen{
-			Carousel: latest.Videos[0:5],
-			Latest:   latest.Videos[5:20],
+			Carousel: carousel.Shows,
+			Latest:   latest.Videos[0:25],
+			Popular:  popular,
 		}
-		fmt.Println(len(homePage.Carousel))
+
 		r.HTML(c.Response().Writer(), http.StatusOK, "home", homePage)
 		return nil
 	})

@@ -21,20 +21,54 @@ var Template = function() { return `<document>
       <carousel>
         <section>
           {{ range $key, $element := .Carousel }}
-          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Id}}">
-            <img src="${this.NYTStaticBaseURL}{{$element.Image}}" width="1380" height="500"/>
+          <lockup template="${this.BASEURL}{{$element.Link}}">
+            <img src="${this.BASEURL}{{$element.Image}}" width="1552" height="499"/>
           </lockup>
           {{ end }}
         </section>
       </carousel>
       <shelf>
         <header>
-          <title>Latest Videos</title>
+          <title>Recently Added</title>
         </header>
         <section>
           {{ range $key, $element := .Latest }}
           <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
-            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 9}}" width="578" height="260" />
+            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 7}}" width="578" height="260" />
+            <overlay>
+              <subtitle class="showAndScrollTextOnHighlight">{{$element.Section.Display_name}}</subtitle>
+            </overlay>
+            <title class="showAndScrollTextOnHighlight">{{$element.Headline}}</title>
+
+          </lockup>
+          {{ end }}
+        </section>
+      </shelf>
+      <shelf>
+        <header>
+          <title>Food</title>
+        </header>
+        <section>
+          {{ range $key, $element := .Cooking }}
+          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
+            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 7}}" width="578" height="260" />
+            <overlay>
+              <subtitle class="showAndScrollTextOnHighlight">{{$element.Section.Display_name}}</subtitle>
+            </overlay>
+            <title class="showAndScrollTextOnHighlight">{{$element.Headline}}</title>
+
+          </lockup>
+          {{ end }}
+        </section>
+      </shelf>
+      <shelf>
+        <header>
+          <title>Op-Docs</title>
+        </header>
+        <section>
+          {{ range $key, $element := .OpDocs }}
+          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
+            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 7}}" width="578" height="260" />
             <overlay>
               <subtitle class="showAndScrollTextOnHighlight">{{$element.Section.Display_name}}</subtitle>
             </overlay>
@@ -50,8 +84,8 @@ var Template = function() { return `<document>
         </header>
         <section>
           {{ range $key, $element := .Popular.Results }}
-          <lockup template="${this.BASEURL}video/{{$element.Id}}/123">
-            <img src="{{getPopularImage $element.Media 0}}" width="578" height="260" />
+          <lockup template="${this.BASEURL}video/{{$element.Id}}/1194811622182">
+            <img src="{{getPopularImage $element.Media 4}}" width="578" height="260" />
             <title class="showAndScrollTextOnHighlight">{{$element.Title}}</title>
           </lockup>
           {{ end }}

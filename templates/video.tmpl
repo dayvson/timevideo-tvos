@@ -13,6 +13,10 @@ var Template = function() { return `<document>
     .heroSize {
       width:854px; height:480px;
     }
+    .subt-size{
+      font-size:35px;
+
+    }
     </style>
   </head>
   <productTemplate theme="light">
@@ -20,9 +24,10 @@ var Template = function() { return `<document>
       <heroImg class="heroSize" src="${this.NYTStaticBaseURL}{{getImage .VideoDetail.Images 5}}" />
       <stack>
         <title>{{.VideoDetail.Headline}}</title>
+        <subtitle class="subt-size">{{.VideoDetail.Byline}}</subtitle>
         <description  allowsZooming="true" >{{.VideoDetail.Summary}}</description>
         <row>
-          <buttonLockup videoURL="{{getVideoURL .VideoDetail.Renditions}}">
+          <buttonLockup videoURL="{{getVideoURL .VideoDetail.Renditions}}" videoTitle="{{.VideoDetail.Headline}}" videoSubtitle="{{.VideoDetail.Byline}}" videoImage="${this.NYTStaticBaseURL}{{getImage .VideoDetail.Images 5}}" videoDescription="{{.VideoDetail.Summary}}" >
             <badge src="resource://button-play" class="whiteBadge" />
           </buttonLockup>
         </row>

@@ -25,21 +25,27 @@ var Presenter = {
     load: function(event) {
         var self = this,
         ele = event.target,
-        videoURL = ele.getAttribute("videoURL")
+        videoURL = ele.getAttribute("videoURL");
         if(videoURL) {
+            var videoImage = ele.getAttribute("videoImage");
+            var videoTitle = ele.getAttribute("videoTitle");
+            var videoSubtitle = ele.getAttribute("videoSubtitle");
+            var videoDescription = ele.getAttribute("videoDescription");
             var player = new Player();
             var playlist = new Playlist();
             var mediaItem = new MediaItem("video", videoURL);
-
+            mediaItem.artworkImageURL = videoImage;
+            mediaItem.title = videoTitle;
+            mediaItem.subtitle = "By " + videoSubtitle;
+            mediaItem.description = videoDescription;
             player.playlist = playlist;
             player.playlist.push(mediaItem);
             player.present();
         }
 
-        var self = this,
-            ele = event.target,
-            templateURL = ele.getAttribute("template"),
-            presentation = ele.getAttribute("presentation");
+
+        templateURL = ele.getAttribute("template"),
+        presentation = ele.getAttribute("presentation");
 
         if (templateURL) {
             self.showLoadingIndicator(presentation);

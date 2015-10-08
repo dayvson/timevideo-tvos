@@ -12,7 +12,7 @@ import (
 
 type Carousel struct {
 	Shows []struct {
-		Id    int
+		Link  string
 		Image string
 	}
 }
@@ -34,10 +34,12 @@ type Popular struct {
 }
 type HomeScreen struct {
 	Carousel []struct {
-		Id    int
+		Link  string
 		Image string
 	}
 	Latest  []Video
+	Cooking []Video
+	OpDocs  []Video
 	Popular Popular
 }
 
@@ -115,7 +117,7 @@ func main() {
 				},
 				"getVideoURL": func(renditions []Rendition) string {
 					for _, element := range renditions {
-						if element.Height == 1080 && element.Video_codec == "H264" {
+						if element.Height == 720 && element.Video_codec == "H264" {
 							return element.Url
 						}
 					}
@@ -137,12 +139,19 @@ func main() {
 	e.Get("/home", func(c *echo.Context) error {
 		latest := Playlist{}
 		getJson("http://www.nytimes.com/svc/video/api/playlist/1194811622182", &latest)
+		food := Playlist{}
+		getJson("http://www.nytimes.com/svc/video/api/playlist/1194820411913", &food)
+		opdocs := Playlist{}
+		getJson("http://www.nytimes.com/svc/video/api/playlist/100000001150263", &opdocs)
 		popular := Popular{}
 		getJson("http://www.nytimes.com/svc/video/api/video/popular", &popular)
+
 		homePage := HomeScreen{
 			Carousel: carousel.Shows,
 			Latest:   latest.Videos[0:25],
+			OpDocs:   opdocs.Videos[0:40],
 			Popular:  popular,
+			Cooking:  food.Videos[0:40],
 		}
 
 		r.HTML(c.Response().Writer(), http.StatusOK, "home", homePage)
@@ -162,5 +171,6 @@ func main() {
 		return nil
 	})
 	e.Static("/js", "static/js")
+	e.Static("/images", "static/images")
 	e.Run(":3000")
 }

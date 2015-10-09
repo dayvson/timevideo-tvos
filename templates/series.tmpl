@@ -1,0 +1,37 @@
+var Template = function() { return `<document>
+    <head>
+      <style>
+      .whiteText {
+        color: rgb(255, 255, 255);
+      }
+      </style>
+    </head>
+    <catalogTemplate>
+      <list>
+        <section>
+          <header>
+            <title>All Series</title>
+          </header>
+          {{ range $key, $element := . }}
+          <listItemLockup>
+            <title>{{$element.Headline}}</title>
+            <decorationLabel>20</decorationLabel>
+            <relatedContent>
+              <grid>
+                <section>
+                  {{range $video := mkslice $element.Videos 0 20}}
+                  <lockup template="${this.BASEURL}video/{{$video.Id}}/{{$video.Playlist.Id}}">
+                    <img src="${this.NYTStaticBaseURL}{{getImage $video.Images 9}}" width="500" height="281" />
+                    <title class="whiteText">{{$video.Headline}}</title>
+                  </lockup>
+                  {{ end }}
+                </section>
+              </grid>
+            </relatedContent>
+          </listItemLockup>
+          {{ end }}
+        </section>
+      </list>
+    </catalogTemplate>
+  </document>`
+}

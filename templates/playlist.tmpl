@@ -1,0 +1,37 @@
+var Template = function() { return `<document>
+  <head>
+    <style>
+    .imageWithGradient {
+      tv-tint-color: linear-gradient(top, 0.33, transparent, 0.66, rgba(0,64,0,0.7), rgba(0,64,0,1.0));
+    }
+    .showTextOnHighlight {
+      tv-text-highlight-style: show-on-highlight;
+    }
+    .scrollTextOnHighlight {
+      tv-text-highlight-style: marquee-on-highlight;
+    }
+    .showAndScrollTextOnHighlight {
+      tv-text-highlight-style: marquee-and-show-on-highlight;
+    }
+
+    </style>
+  </head>
+  <stackTemplate>
+    <collectionList>
+      <grid>
+        <header>
+          <title>{{.Headline}}</title>
+        </header>
+        <section>
+          {{ range $key, $element := .Videos }}
+          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
+            <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 7}}" width="360" height="200" />
+            <title>{{$element.Headline}}</title>
+          </lockup>
+          {{ end }}
+        </section>
+      </grid>
+    </collectionList>
+  </stackTemplate>
+</document>`
+}

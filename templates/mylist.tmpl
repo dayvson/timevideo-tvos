@@ -1,0 +1,27 @@
+var Template = function() { return `<document>
+  <head>
+    <style>
+      .lightBackgroundColor {
+        background-color: #e49c36;
+      }
+    </style>
+  </head>
+  <stackTemplate theme="light" class="lightBackgroundColor" >
+    <collectionList>
+      <shelf>
+        <header>
+          <title>My Saved Items</title>
+        </header>
+        <section>
+          {{ range $key, $element := . }}
+            <lockup template="${this.BASEURL}video/{{$element.Data.Id}}/123">
+              <img src="{{$element.Data.Image.Url}}" width="500" height="281" />
+              <title class="whiteText">{{$element.Data.Headline}}</title>
+            </lockup>
+          {{ end }}
+        </section>
+      </shelf>
+    </collectionList>
+  </stackTemplate>
+</document>`
+}

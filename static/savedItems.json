@@ -1,0 +1,81 @@
+{
+   "Assets":[
+      {
+         "RegiID":67938654,
+         "URL":"http://www.nytimes.com/video/travel/100000003933623/36-hours-buenos-aires.html",
+         "CreatedDate":"2015-10-09T04:02:23Z",
+         "UpdatedDate":"2015-10-09T04:02:23Z",
+         "Status":"active",
+         "Data":{
+            "DataID":100000003933623,
+            "RetrievalTime":"2015-10-09T04:02:23Z",
+            "Headline":"36 Hours in Buenos Aires",
+            "Byline":"By FRITZIE ANDRADE, FARHOD FAMILY, DUY LINH TU, SARAH BRADY VOLL and AARON WOLFE",
+            "Kicker":"",
+            "Summary":"The city never loses its charm, and the nonstop spawning of new restaurants and arts spaces is a testament to its endless creativity.",
+            "ImageCaption":"",
+            "ImageCredit":"Horacio Paone for The New York Times",
+            "ImageCrops":{
+               "ThumbLarge":"http://static01.nyt.com/images/2015/10/08/travel/36hours-buenos-aires-img/36hours-buenos-aires-img-thumbLarge.jpg",
+               "MediumThreeByTwo210":"http://static01.nyt.com/images/2015/10/08/travel/36hours-buenos-aires-img/36hours-buenos-aires-img-mediumThreeByTwo210.jpg"
+            },
+            "LastMajorModificationTimestamp":"2015-10-07T17:41:06Z"
+         }
+      },
+      {
+         "RegiID":67938654,
+         "URL":"http://www.nytimes.com/video/movies/100000003966729/this-weeks-movies-october-9-2015.html",
+         "CreatedDate":"2015-10-09T03:44:01Z",
+         "UpdatedDate":"2015-10-09T03:44:22Z",
+         "Status":"active",
+         "Data":{
+            "DataID":100000003966729,
+            "RetrievalTime":"2015-10-09T03:44:22Z",
+            "Headline":"This Week’s Movies: October 9, 2015",
+            "Byline":"By SOFIA PERPETUA and YOUSUR AL-HLOU",
+            "Kicker":"",
+            "Summary":"The New York Times film critics review “Pan,” “Steve Jobs” and “The Forbidden Room.”",
+            "ImageCaption":"",
+            "ImageCredit":"Laurie Sparham/Warner Brothers",
+            "ImageCrops":{
+               "ThumbLarge":"http://static01.nyt.com/images/2015/10/08/multimedia/movies-10092015/movies-10092015-thumbLarge.jpg",
+               "MediumThreeByTwo210":"http://static01.nyt.com/images/2015/10/08/multimedia/movies-10092015/movies-10092015-mediumThreeByTwo210.jpg"
+            },
+            "LastMajorModificationTimestamp":"2015-10-08T21:33:21Z"
+         }
+      },
+      {
+         "RegiID":67938654,
+         "URL":"http://www.nytimes.com/video/dining/100000003959880/recipe-lab-ragu.html",
+         "CreatedDate":"2015-10-06T20:45:26Z",
+         "UpdatedDate":"2015-10-06T20:45:27Z",
+         "Status":"active",
+         "Data":{
+            "DataID":100000003959880,
+            "RetrievalTime":"2015-10-07T17:20:20Z",
+            "Headline":"Recipe Lab: Ragù",
+            "Byline":"By JASON LEE and DEVON KNIGHT",
+            "Kicker":"",
+            "Summary":"Julia Moskin makes a classic ragù with sausage and tomato.",
+            "ImageCaption":"",
+            "ImageCredit":"Rikki Snyder for The New York Times",
+            "ImageCrops":{
+               "ThumbLarge":"http://static01.nyt.com/images/2015/10/01/multimedia/recipe-lab-ragout/recipe-lab-ragout-thumbLarge.jpg",
+               "MediumThreeByTwo210":"http://static01.nyt.com/images/2015/10/01/multimedia/recipe-lab-ragout/recipe-lab-ragout-mediumThreeByTwo210.jpg"
+            },
+            "LastMajorModificationTimestamp":"2015-10-06T21:58:33Z"
+         }
+      }
+   ],
+   "Offset":0,
+   "PageSize":3,
+   "RetrievalTime":"2015-10-09T04:07:57Z",
+   "OverallSummary":{
+      "RegiID":67938654,
+      "Count":3,
+      "ReadCount":0,
+      "ArchiveCount":0,
+      "CreatedDate":"2015-10-06T20:45:26Z",
+      "UpdatedDate":"2015-10-09T04:02:23Z"
+   }
+}

@@ -21,47 +21,52 @@ var Presenter = {
     modalDialogPresenter: function(xml) {
         navigationDocument.presentModal(xml);
     },
-
+    loadURL:function(url, presentation, ele){
+        var self = this;
+        this.showLoadingIndicator(presentation);
+        resourceLoader.loadResource(url,
+            function(resource) {
+                if (resource) {
+                    var doc = self.makeDocument(resource);
+                    doc.addEventListener("select", self.load.bind(self));
+                    if (self[presentation] instanceof Function) {
+                        self[presentation].call(self, doc, ele);
+                    } else {
+                        self.defaultPresenter.call(self, doc);
+                    }
+                }
+            }
+        );
+    },
+    loadPlayer:function(videoURL, ele){
+        var videoImage = ele.getAttribute("videoImage");
+        var videoTitle = ele.getAttribute("videoTitle");
+        var videoSubtitle = ele.getAttribute("videoSubtitle");
+        var videoDescription = ele.getAttribute("videoDescription");
+        var player = new Player();
+        var playlist = new Playlist();
+        var mediaItem = new MediaItem("video", videoURL);
+        mediaItem.artworkImageURL = videoImage;
+        mediaItem.title = videoTitle;
+        mediaItem.subtitle = "By " + videoSubtitle;
+        mediaItem.description = videoDescription;
+        player.playlist = playlist;
+        player.playlist.push(mediaItem);
+        player.present();
+    },
     load: function(event) {
         var self = this,
         ele = event.target,
         videoURL = ele.getAttribute("videoURL");
         if(videoURL) {
-            var videoImage = ele.getAttribute("videoImage");
-            var videoTitle = ele.getAttribute("videoTitle");
-            var videoSubtitle = ele.getAttribute("videoSubtitle");
-            var videoDescription = ele.getAttribute("videoDescription");
-            var player = new Player();
-            var playlist = new Playlist();
-            var mediaItem = new MediaItem("video", videoURL);
-            mediaItem.artworkImageURL = videoImage;
-            mediaItem.title = videoTitle;
-            mediaItem.subtitle = "By " + videoSubtitle;
-            mediaItem.description = videoDescription;
-            player.playlist = playlist;
-            player.playlist.push(mediaItem);
-            player.present();
+            this.loadPlayer(videoURL, ele);
         }
-
-
+        
         templateURL = ele.getAttribute("template"),
         presentation = ele.getAttribute("presentation");
 
         if (templateURL) {
-            self.showLoadingIndicator(presentation);
-            resourceLoader.loadResource(templateURL,
-                function(resource) {
-                    if (resource) {
-                        var doc = self.makeDocument(resource);
-                        doc.addEventListener("select", self.load.bind(self));
-                        if (self[presentation] instanceof Function) {
-                            self[presentation].call(self, doc, ele);
-                        } else {
-                            self.defaultPresenter.call(self, doc);
-                        }
-                    }
-                }
-            );
+            this.loadURL(templateURL, presentation, ele);
         }
     },
 

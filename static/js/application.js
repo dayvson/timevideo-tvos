@@ -11,11 +11,20 @@ App.onLaunch = function(options) {
         if (success) {
             resourceLoader = new ResourceLoader(options.BASEURL, options.NYTStaticBaseURL);
 
-            var index = resourceLoader.loadResource(`${options.BASEURL}main`, 
+            resourceLoader.loadResource(`${options.BASEURL}main`, 
                 function(resource) {
                     var doc = Presenter.makeDocument(resource);
                     doc.addEventListener("select", Presenter.load.bind(Presenter));
                     navigationDocument.pushDocument(doc);
+                    if(options.DEEPLINK){
+                       resourceLoader.loadResource(`${options.BASEURL}video`+options.DEEPLINK, 
+                        function(resource) {
+                          var doc = Presenter.makeDocument(resource);
+                          doc.addEventListener("select", Presenter.load.bind(Presenter));
+                          navigationDocument.pushDocument(doc);
+                          
+                        });
+                    }
                 });
         } else {
 
@@ -26,7 +35,6 @@ App.onLaunch = function(options) {
         }
     });
 }
-
 
 var createAlert = function(title, description) {  
 

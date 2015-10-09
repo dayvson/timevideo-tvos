@@ -33,7 +33,7 @@ var Template = function() { return `<document>
         </header>
         <section>
           {{ range $key, $element := .Latest }}
-          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
+          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}"  data="{{$element.Headline}}">
             <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 7}}" width="578" height="260" />
             <overlay>
               <subtitle class="showAndScrollTextOnHighlight">{{$element.Section.Display_name}}</subtitle>
@@ -50,13 +50,12 @@ var Template = function() { return `<document>
         </header>
         <section>
           {{ range $key, $element := .Cooking }}
-          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
+          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}"  data="{{$element.Headline}}">
             <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 7}}" width="578" height="260" />
             <overlay>
               <subtitle class="showAndScrollTextOnHighlight">{{$element.Section.Display_name}}</subtitle>
             </overlay>
             <title class="showAndScrollTextOnHighlight">{{$element.Headline}}</title>
-
           </lockup>
           {{ end }}
         </section>
@@ -67,7 +66,7 @@ var Template = function() { return `<document>
         </header>
         <section>
           {{ range $key, $element := .OpDocs }}
-          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}">
+          <lockup template="${this.BASEURL}video/{{$element.Id}}/{{$element.Playlist.Id}}"  data="{{$element.Headline}}">
             <img src="${this.NYTStaticBaseURL}{{getImage $element.Images 7}}" width="578" height="260" />
             <overlay>
               <subtitle class="showAndScrollTextOnHighlight">{{$element.Section.Display_name}}</subtitle>

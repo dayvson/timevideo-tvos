@@ -35,7 +35,7 @@ var Template = function() { return `<document>
     </banner>
     <shelf>
       <header>
-        <title>{{.VideoDetail.Playlist.Display_name}}</title>
+        <title>More in {{.VideoDetail.Playlist.Display_name}}</title>
       </header>
       <section>
         {{ range $key, $element := .Playlist.Videos }}
